@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>WeekOff Entry UI</title>
+    </head>
+    <body>
+      <div class="bg-gray-100 border-b p-6 rounded-md">
+        <h1 class="font-semibold">Add Work Calender</h1>
+        <div class="mt-4 bg-white border-b p-5 rounded-lg shadow-md">
+          <h3 class="font-semibold">Define Weekend</h3>
+          <input type="checkbox" id="defweekend" name="weekendchecker" value="Check Weekend">
+          <label for="defweekend">Half working day & Half weekend</label><br>
+          <div class="mt-4 overflow-x-auto max-w-full">
+            <form class="w-full min-w-[960px] bg-white shadow rounded-lg border">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-100 border-b text-gray-700 text-xs uppercase">
+                <tr>
+                  <th class="px-3 py-2 text-left"></th>
+                  <th class="px-3 py-2">All</th>
+                  <th class="px-3 py-2">1st</th>
+                  <th class="px-3 py-2">2nd</th>
+                  <th class="px-3 py-2">3rd</th>
+                  <th class="px-3 py-2">4th</th>
+                  <th class="px-3 py-2">5th</th>
+                </tr>
+              </thead>
+              <tbody id="weekdayGrid">
+                <!-- JS will populate rows -->
+              </tbody>
+              </table>
+            </form>
+          </div>
+        </div>
+        <div class="p-4 border-t">
+          <button type="button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+          <button type="button" class="bg-white border-b text-gray-700 px-4 py-2 rounded hover:border-t">Cancel</button>
+        </div>
+      </div>
+      <script>
+        const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+        const occurrenceCount = ["All", "1st", "2nd", "3rd", "4th", "5th"];
+        const tbody = document.getElementById("weekdayGrid");
+        const togglebtn = document.getElementById("defweekend");
+
+        function renderTable(includeDropdowns) {
+          tbody.innerHTML = ""; // Clear previous content
+
+          weekdays.forEach(day => {
+            const row = document.createElement("tr");
+            row.classList.add("border-t");
+
+            const labelCell = document.createElement("td");
+            labelCell.className = "px-3 py-2 font-semibold";
+            labelCell.textContent = day;
+            row.appendChild(labelCell);
+
+            occurrenceCount.forEach((_, idx) => {
+              const cell = document.createElement("td");
+              cell.className = "border rounded-md p-2";
+
+              const container = document.createElement("div");
+              container.className = "flex items-center justify-center gap-2 text-xs";
+
+              // Basic Checkbox
+              const checkbox = document.createElement("input");
+              checkbox.type = "checkbox";
+              checkbox.className = "form-checkbox text-blue-600";
+              checkbox.name = `${day}-${idx}-working`;
+
+              const label = document.createElement("label");
+              label.className = "flex items-center gap-1 text-xs justify-center";
+              label.appendChild(checkbox);
+              label.appendChild(document.createElement("span"));
+              cell.appendChild(label);
+
+              container.appendChild(checkbox);
+
+              // Optional Dropdown
+              if (includeDropdowns) {
+                const select = document.createElement("select");
+                select.className = "ml-2 text-xs bg-white border rounded";
+                select.name = `${day}-${idx}-type`;
+
+                ["FullDay", "1st Half", "2nd Half"].forEach(optionText => {
+                  const option = document.createElement("option");
+                  option.value = optionText.toLowerCase();
+                  option.textContent = optionText;
+                  select.appendChild(option);
+                });
+
+                cell.appendChild(select);
+                container.appendChild(select);
+              }
+
+              cell.appendChild(container);
+              row.appendChild(cell);
+            });
+
+            tbody.appendChild(row);
+          });
+        }
+
+        // Initial render
+        renderTable(togglebtn.checked);
+
+        // Update on toggle change
+        togglebtn.addEventListener("change", () => {
+          renderTable(togglebtn.checked);
+        });
+      </script>
+    </body>
+</html>
