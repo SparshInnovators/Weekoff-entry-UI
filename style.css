@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f7fa;
+  padding: 20px 0;
+}
+
+.calendar-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 950px;
+  margin: auto;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+/* Fix alignment of checkbox and label in form header */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.form-check-label {
+  margin-bottom: 0 !important;
+  line-height: 1.5;
+}
+
+.form-check-input {
+  margin: 0;
+  transform: translateY(1px);
+}
+
+/* Table styling */
+.table {
+  border-collapse: separate;
+  border-spacing: 6px;
+  background: #f5f7fa;
+  border-radius: 6px;
+  width: 100%;
+}
+
+#checkboxOnlyTable tbody tr,
+#checkboxDropdownTable tbody tr {
+  height: 46px;
+}
+
+th,
+td {
+  background: white;
+  border-radius: 6px;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #f5f7fa;
+  font-weight: 500;
+}
+
+/* Left-align day names */
+th.col-3,
+td.col-3 {
+  text-align: left;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Checkbox + Dropdown alignment inside cells */
+td label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+select {
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  height: 30px;
+  margin: 0;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 575.98px) {
+  .calendar-container {
+    padding: 15px;
+  }
+
+  th.col-3,
+  td.col-3 {
+    font-size: 13px;
+    padding: 5px;
+  }
+
+  th,
+  td {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  select {
+    font-size: 12px;
+    padding: 3px 4px;
+    height: 28px;
+  }
+
+  input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+  }
+
+  .form-check-label {
+    font-size: 14px;
+  }
+}
+
+/* Table responsiveness */
+@media (max-width: 991.98px) {
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+  }
+
+  .table-responsive table {
+    min-width: max-content;
+    width: auto !important;
+  }
+}
+
+
+
