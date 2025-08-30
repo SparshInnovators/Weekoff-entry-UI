@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Work Calendar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+  <div class="bg-white w-full max-w-5xl rounded-lg shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">Add Work Calendar</h2>
+
+    <!-- Half Day Checkbox -->
+    <div class="mb-4">
+      <label class="flex items-center space-x-2">
+        <input id="halfDayToggle" type="checkbox" class="w-4 h-4 border-gray-300 rounded">
+        <span class="text-gray-700">Half working day & half weekend</span>
+      </label>
+    </div>
+
+    <!-- Calendar Table -->
+    <div class="overflow-x-auto border rounded-lg">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="p-3 text-left">Day</th>
+            <th class="p-3 text-center">All</th>
+            <th class="p-3 text-center">1st</th>
+            <th class="p-3 text-center">2nd</th>
+            <th class="p-3 text-center">3rd</th>
+            <th class="p-3 text-center">4th</th>
+            <th class="p-3 text-center">5th</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Generate 7 rows (Sunday-Saturday) -->
+          <tr class="border-t">
+            <td class="p-3">Sunday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Monday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Tuesday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Wednesday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Thursday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Friday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">Saturday</td>
+            <td class="text-center"><input type="checkbox" class="row-all"></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            <td class="text-center"><input type="checkbox" class="day-checkbox"><select class="day-dropdown hidden ml-1 border rounded px-1 py-0.5"><option>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+          </tr>
+          <!-- Repeat rows for Monday-Saturday -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer Buttons -->
+    <div class="flex justify-end space-x-3 mt-6">
+      <button class="px-4 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">Cancel</button>
+      <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
