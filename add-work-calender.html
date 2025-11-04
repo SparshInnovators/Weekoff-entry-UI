@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Work Calendar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .calendar-table th, .calendar-table td {
+      vertical-align: middle;
+      text-align: center;
+      min-width: 80px;
+    }
+    .calendar-table th:first-child {
+      min-width: 90px;
+      background: #f7f8fa;
+      font-weight: 500;
+    }
+    .bootstrap-select > select {
+      width: 100px;
+      display: inline-block;
+    }
+    .btn-save {
+      min-width: 68px;
+    }
+    .btn-cancel {
+      min-width: 68px;
+    }
+    @media (max-width: 767px) {
+      .calendar-table th, .calendar-table td {
+        min-width: 56px;
+        font-size: 12px;
+        padding: 2px;
+      }
+      .calendar-table th:first-child {
+        min-width: 65px;
+      }
+      .bootstrap-select > select {
+        width: 75px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container py-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-light d-flex align-items-center" style="font-weight: 500;">
+      Add Work Calendar
+    </div>
+    <div class="card-body">
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="halfDayToggle">
+        <label class="form-check-label" for="halfDayToggle">
+          Half working day & half weekend
+        </label>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered calendar-table mb-3">
+          <thead class="table-light">
+            <tr>
+              <th></th>
+              <th>All</th>
+              <th>1st</th>
+              <th>2nd</th>
+              <th>3rd</th>
+              <th>4th</th>
+              <th>5th</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- DAY ROWS -->
+            <tr>
+              <th>Sunday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td>
+                <input type="checkbox" class="form-check-input mb-1">
+                <select class="form-select form-select-sm mt-1 d-none" tabindex="1">
+                  <option selected>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>
+              </td>
+              <td>
+                <input type="checkbox" class="form-check-input mb-1">
+                <select class="form-select form-select-sm mt-1 d-none" tabindex="2">
+                  <option selected>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>
+              </td>
+              <td>
+                <input type="checkbox" class="form-check-input mb-1">
+                <select class="form-select form-select-sm mt-1 d-none" tabindex="3">
+                  <option selected>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>
+              </td>
+              <td>
+                <input type="checkbox" class="form-check-input mb-1">
+                <select class="form-select form-select-sm mt-1 d-none" tabindex="4">
+                  <option selected>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>
+              </td>
+              <td>
+                <input type="checkbox" class="form-check-input mb-1">
+                <select class="form-select form-select-sm mt-1 d-none" tabindex="5">
+                  <option selected>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>
+              </td>
+            </tr>
+            <!-- Repeat row (copy & paste, only change the day) for each day (Monday to Saturday) -->
+            <tr>
+              <th>Monday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <!-- Repeat the day columns as above -->
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none" tabindex="6"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none" tabindex="7"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none" tabindex="8"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none" tabindex="9"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none" tabindex="10"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+            <tr>
+              <th>Tuesday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+            <tr>
+              <th>Wednesday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+            <tr>
+              <th>Thursday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+            <tr>
+              <th>Friday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+            <tr>
+              <th>Saturday</th>
+              <td><input type="checkbox" class="form-check-input"></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+              <td><input type="checkbox" class="form-check-input mb-1"><select class="form-select form-select-sm mt-1 d-none"><option selected>Full Day</option><option>1st Half</option><option>2nd Half</option></select></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <button class="btn btn-primary btn-save me-2">Save</button>
+        <button class="btn btn-outline-secondary btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Toggle "d-none" on all select boxes based on main checkbox
+  document.getElementById('halfDayToggle').addEventListener('change', function() {
+    document.querySelectorAll('.calendar-table select').forEach(function(sel) {
+      sel.classList.toggle('d-none', !event.target.checked);
+    });
+  });
+  // Initial state (hidden)
+  document.querySelectorAll('.calendar-table select').forEach(function(sel) {
+    sel.classList.add('d-none');
+  });
+</script>
+</body>
+</html>
