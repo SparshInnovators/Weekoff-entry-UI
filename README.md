@@ -28,3 +28,6 @@ We need to create a new UI layout based on a given reference design using HTML, 
 3. **JavaScript**:
    - Add JavaScript for any dynamic elements (e.g., dropdowns, modals, carousels).
    - When half working day checkbox is checked then show the dropdown.
+
+   4. **HTML Structure**:
+   - Done two separete htnml file for this task.
