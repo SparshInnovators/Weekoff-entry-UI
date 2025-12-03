@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Work Calendar</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gray-100 flex justify-center items-start p-4 sm:p-6 lg:p-10">
+
+  <div class="bg-white shadow-lg rounded-2xl w-full max-w-7xl p-5 sm:p-6">
+    
+    <!-- Header -->
+    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-gray-800">
+      Add Work Calendar
+    </h2>
+
+    <!-- Checkbox -->
+    <div class="mb-4 flex items-center space-x-2">
+      <input
+        id="halfDay"
+        type="checkbox"
+        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+      />
+      <label for="halfDay" class="text-gray-700 text-sm sm:text-base">
+        Half working day & half weekend
+      </label>
+    </div>
+
+    <!-- Desktop / Tablet View -->
+    <div class="hidden md:block overflow-x-auto">
+      <table class="min-w-full border border-gray-200 text-sm text-gray-700">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="p-3 border text-left">Day</th>
+            <th class="p-3 border text-center">All</th>
+            <th class="p-3 border text-center">1st</th>
+            <th class="p-3 border text-center">2nd</th>
+            <th class="p-3 border text-center">3rd</th>
+            <th class="p-3 border text-center">4th</th>
+            <th class="p-3 border text-center">5th</th>
+          </tr>
+        </thead>
+        <tbody id="desktopBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Mobile View -->
+    <div id="mobileContainer" class="block md:hidden space-y-4"></div>
+
+    <!-- Buttons -->
+    <div class="flex justify-end space-x-3 mt-6">
+      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm sm:text-base">
+        Cancel
+      </button>
+      <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm sm:text-base">
+        Save
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const days = [
+      "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+    ];
+
+    const weeks = ["All", "1st", "2nd", "3rd", "4th", "5th"];
+    const halfDayCheckbox = document.getElementById("halfDay");
+
+    const desktopBody = document.getElementById("desktopBody");
+    const mobileContainer = document.getElementById("mobileContainer");
+
+    // Generate Desktop Table Rows
+    function renderDesktop(halfDay) {
+      desktopBody.innerHTML = "";
+
+      days.forEach(day => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-gray-50";
+
+        tr.innerHTML = `
+          <td class="p-3 border font-medium">${day}</td>
+          ${weeks
+            .map(
+              week => `
+            <td class="p-3 border text-center">
+              <div class="flex justify-center items-center space-x-2">
+                <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded" />
+                ${
+                  halfDay
+                    ? `
+                <select class="border border-gray-300 rounded-md text-sm px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option>Full Day</option>
+                  <option>1st Half</option>
+                  <option>2nd Half</option>
+                </select>`
+                    : ""
+                }
+              </div>
+            </td>
+          `
+            )
+            .join("")}
+        `;
+        desktopBody.appendChild(tr);
+      });
+    }
+
+    // Generate Mobile Cards
+    function renderMobile(halfDay) {
+      mobileContainer.innerHTML = "";
+
+      days.forEach(day => {
+        const div = document.createElement("div");
+        div.className = "border rounded-xl p-4 shadow-sm bg-gray-50";
+
+        div.innerHTML = `
+          <h3 class="font-semibold text-gray-800 mb-2">${day}</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            ${weeks
+              .map(
+                week => `
+              <div class="flex flex-col items-start border border-gray-200 p-2 rounded-lg bg-white">
+                <label class="text-xs font-medium mb-1">${week}</label>
+                <div class="flex items-center space-x-2">
+                  <input type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded" />
+                  ${
+                    halfDay
+                      ? `
+                  <select class="border border-gray-300 rounded-md text-xs px-1 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>Full Day</option>
+                    <option>1st Half</option>
+                    <option>2nd Half</option>
+                  </select>`
+                      : ""
+                  }
+                </div>
+              </div>`
+              )
+              .join("")}
+          </div>
+        `;
+        mobileContainer.appendChild(div);
+      });
+    }
+
+    // Initial Render
+    renderDesktop(false);
+    renderMobile(false);
+
+    // Handle Half Day Toggle
+    halfDayCheckbox.addEventListener("change", () => {
+      const checked = halfDayCheckbox.checked;
+      renderDesktop(checked);
+      renderMobile(checked);
+    });
+
+  </script>
+
+</body>
+</html>
