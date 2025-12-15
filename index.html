@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weekoff Entry</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+  <main class="w-full max-w-3xl bg-white rounded-2xl shadow-md p-6 md:p-8">
+    <h1 class="text-2xl font-semibold text-gray-800 mb-6">Weekoff Entry</h1>
+
+    <form class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium">Employee</label>
+          <select class="mt-1 w-full rounded-lg border-gray-300">
+            <option>Select Employee</option>
+            <option>John Doe</option>
+            <option>Jane Smith</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium">Weekoff Date</label>
+          <input type="date" class="mt-1 w-full rounded-lg border-gray-300" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Reason</label>
+        <textarea rows="3" class="mt-1 w-full rounded-lg border-gray-300"></textarea>
+      </div>
+
+      <div class="flex gap-6">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" /> Paid Weekoff
+        </label>
+
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="halfDay" /> Half Working Day
+        </label>
+      </div>
+
+      <div id="halfDayDropdown" class="hidden" aria-hidden="true">
+        <label class="block text-sm font-medium">Half Day Type</label>
+        <select class="mt-1 w-full rounded-lg border-gray-300">
+          <option value="">Select</option>
+          <option value="first">First Half</option>
+          <option value="second">Second Half</option>
+        </select>
+      </div>
+
+      <!-- Button to open calendar modal (reference UI) -->
+      <div class="pt-4">
+        <button id="openCalendar" type="button" class="px-4 py-2 bg-indigo-600 text-white rounded-lg shadow-sm">Open Work Calendar</button>
+      </div>
+
+      <div class="flex justify-end gap-3">
+        <button type="reset" class="px-4 py-2 border rounded-lg">Cancel</button>
+        <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Save</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Modal: Work Calendar (based on reference images) -->
+  <div id="calendarModal" role="dialog" aria-modal="true" aria-labelledby="calendarTitle" class="fixed inset-0 bg-black bg-opacity-30 hidden items-start justify-center p-6 z-50">
+    <div data-modal-content class="mt-12 w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden" tabindex="-1">
+      <header class="flex items-center justify-between px-6 py-4 border-b">
+        <h2 id="calendarTitle" class="text-lg font-semibold">Add Work Calendar</h2>
+        <div class="flex items-center gap-3">
+          <label class="flex items-center gap-2 text-sm">
+            <input id="halfWorking" type="checkbox" class="h-4 w-4" />
+            Half working day &amp; half weekend
+          </label>
+          <button id="closeCalendar" aria-label="Close" class="p-2 rounded bg-gray-100 hover:bg-gray-200">✕</button>
+        </div>
+      </header>
+
+      <div class="p-6">
+        <div class="bg-gray-50 rounded-lg p-4 overflow-auto">
+          <div class="min-w-[900px]">
+            <div class="grid grid-cols-8 gap-4 items-center text-sm text-gray-600 mb-3">
+              <div class="col-span-1 font-medium">&nbsp;</div>
+              <div class="col-span-1 text-center font-medium">All</div>
+              <div class="col-span-1 text-center font-medium">1st</div>
+              <div class="col-span-1 text-center font-medium">2nd</div>
+              <div class="col-span-1 text-center font-medium">3rd</div>
+              <div class="col-span-1 text-center font-medium">4th</div>
+              <div class="col-span-1 text-center font-medium">5th</div>
+              <div class="col-span-1">&nbsp;</div>
+            </div>
+
+            <div class="space-y-3">
+              <!-- Days rows generated manually for clarity -->
+              <script>
+                // We'll create rows from JS for clarity and to keep the HTML tidy
+              </script>
+              <div id="calendarGrid" class="space-y-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-end gap-3">
+          <button id="modalSave" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+          <button id="modalCancel" class="px-4 py-2 border rounded">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const halfDay = document.getElementById('halfDay');
+    const dropdown = document.getElementById('halfDayDropdown');
+
+    halfDay.addEventListener('change', () => {
+      dropdown.classList.toggle('hidden', !halfDay.checked);
+      dropdown.setAttribute('aria-hidden', (!halfDay.checked).toString());
+    });
+
+    // Modal & calendar grid interactivity
+    (function () {
+      const openBtn = document.getElementById('openCalendar');
+      const modal = document.getElementById('calendarModal');
+      const closeBtn = document.getElementById('closeCalendar');
+      const cancelBtn = document.getElementById('modalCancel');
+      const saveBtn = document.getElementById('modalSave');
+      const halfWorking = document.getElementById('halfWorking');
+      const grid = document.getElementById('calendarGrid');
+
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const columns = ['all','1','2','3','4','5'];
+
+      // Helper to create unique ids
+      const uid = (prefix) => `${prefix}-${Math.random().toString(36).slice(2,9)}`;
+
+      function createRow(day, isSaturday=false){
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-8 gap-4 items-center text-sm';
+
+        const labelWrap = document.createElement('div');
+        labelWrap.className = 'col-span-1';
+        labelWrap.innerHTML = `<div class="bg-white rounded-md p-4 border">${day}</div>`;
+        row.appendChild(labelWrap);
+
+        columns.forEach((col, idx) => {
+          const cellWrap = document.createElement('div');
+          cellWrap.className = 'col-span-1';
+          const id = uid(`chk-${day}-${col}`);
+
+          if (col === 'all') {
+            // Row 'all' checkbox toggles the row
+            cellWrap.innerHTML = `
+              <div class="bg-white rounded-md p-3 border flex items-center justify-center">
+                <input type="checkbox" id="${id}" data-row="${day}" class="row-all" aria-label="Toggle all for ${day}">
+              </div>`;
+          } else {
+            // Normal cell: checkbox + select (select hidden until checkbox checked)
+            const selectId = uid(`sel-${day}-${col}`);
+            cellWrap.innerHTML = `
+              <div class="bg-white rounded-md p-3 border flex items-center gap-2 justify-center">
+                <input type="checkbox" id="${id}" data-row="${day}" data-col="${col}" class="cell-checkbox" aria-label="Select ${day} ${col} occurrence">
+                <select id="${selectId}" class="ml-2 text-sm rounded border-gray-200 hidden" disabled aria-hidden="true">
+                  <option value="full">Full Day</option>
+                  <option value="first">1st Half</option>
+                  <option value="second">2nd Half</option>
+                </select>
+              </div>`;
+          }
+
+          row.appendChild(cellWrap);
+        });
+
+        // append spacer
+        const spacer = document.createElement('div');
+        spacer.className = 'col-span-1';
+        row.appendChild(spacer);
+
+        grid.appendChild(row);
+
+        if (isSaturday) {
+          // pre-check Saturday (like reference)
+          const checkboxes = row.querySelectorAll('.cell-checkbox');
+          checkboxes.forEach(cb => {
+            cb.checked = true;
+            const select = cb.closest('div').querySelector('select');
+            if (select) {
+              select.classList.remove('hidden');
+              select.disabled = false;
+              select.setAttribute('aria-hidden', 'false');
+            }
+          });
+        }
+      }
+
+      // Build grid
+      days.forEach((d, i) => createRow(d, d === 'Saturday'));
+
+      // Initialize half-working option states (disable half options by default)
+      halfWorking.dispatchEvent(new Event('change'));
+
+      // Focus management for accessibility
+      let previousFocus = null;
+      const modalContent = modal.querySelector('[data-modal-content]');
+      const mainContent = document.querySelector('main');
+
+      // Event delegation for cell checkbox -> toggle select
+      grid.addEventListener('change', (e) => {
+        const target = e.target;
+        if (target.classList.contains('cell-checkbox')) {
+          const select = target.closest('div').querySelector('select');
+          if (select) {
+            if (target.checked) {
+              select.classList.remove('hidden');
+              select.disabled = false;
+              select.setAttribute('aria-hidden', 'false');
+            } else {
+              select.classList.add('hidden');
+              select.disabled = true;
+              select.setAttribute('aria-hidden', 'true');
+              select.value = 'full';
+            }
+          }
+        }
+
+        // row-all toggles row's other checkboxes
+        if (target.classList.contains('row-all')) {
+          const row = target.closest('.grid');
+          const rowCheckboxes = row.querySelectorAll('.cell-checkbox');
+          rowCheckboxes.forEach(cb => {
+            cb.checked = target.checked;
+            const select = cb.closest('div').querySelector('select');
+            if (select) {
+              if (target.checked) {
+                select.classList.remove('hidden');
+                select.disabled = false;
+                select.setAttribute('aria-hidden', 'false');
+              } else {
+                select.classList.add('hidden');
+                select.disabled = true;
+                select.setAttribute('aria-hidden', 'true');
+                select.value = 'full';
+              }
+            }
+          });
+        }
+      });
+
+      // When halfWorking is toggled, enable/disable half options in selects
+      halfWorking.addEventListener('change', () => {
+        const allSelects = grid.querySelectorAll('select');
+        allSelects.forEach(sel => {
+          const optFirst = sel.querySelector('option[value="first"]');
+          const optSecond = sel.querySelector('option[value="second"]');
+          if (!optFirst || !optSecond) return;
+          if (halfWorking.checked) {
+            optFirst.disabled = false;
+            optSecond.disabled = false;
+          } else {
+            // revert to Full Day if a half was selected
+            if (sel.value === 'first' || sel.value === 'second') {
+              sel.value = 'full';
+            }
+            optFirst.disabled = true;
+            optSecond.disabled = true;
+          }
+        });
+      });
+
+      // Modal open/close handlers
+      function showModal(){
+        previousFocus = document.activeElement;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        // hide the main content from assistive tech while modal is open
+        if (mainContent) mainContent.setAttribute('aria-hidden', 'true');
+        // prevent background scroll
+        document.body.style.overflow = 'hidden';
+        // initialize halfWorking state
+        halfWorking.dispatchEvent(new Event('change'));
+        // focus modal content then a sensible first control
+        setTimeout(() => {
+          modalContent.focus();
+          halfWorking.focus();
+        }, 0);
+      }
+      function hideModal(){
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+        if (mainContent) mainContent.removeAttribute('aria-hidden');
+        document.body.style.overflow = '';
+        // restore focus
+        if (previousFocus && previousFocus.focus) previousFocus.focus();
+      }
+
+      openBtn.addEventListener('click', showModal);
+      closeBtn.addEventListener('click', hideModal);
+      cancelBtn.addEventListener('click', hideModal);
+      saveBtn.addEventListener('click', () => {
+        // for demo: gather selected cells and print to console (could be sent to server)
+        const selected = [];
+        grid.querySelectorAll('.cell-checkbox:checked').forEach(cb => {
+          const row = cb.dataset.row;
+          const col = cb.dataset.col;
+          const select = cb.closest('div').querySelector('select');
+          selected.push({ row, col, type: select ? select.value : 'full' });
+        });
+        console.log('Selected calendar cells:', selected);
+        hideModal();
+      });
+
+      // clicking outside modal content closes it
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideModal();
+      });
+
+      // Esc key closes modal
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          hideModal();
+        }
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
