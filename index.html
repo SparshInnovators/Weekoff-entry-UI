@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekoff Entry | HR Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800">
+  <header class="bg-indigo-700 text-white shadow-lg">
+    <div class="mx-auto max-w-6xl px-5 py-5">
+      <p class="text-sm text-indigo-200">HR MANAGEMENT PORTAL</p>
+      <h1 class="mt-1 text-2xl font-bold">Weekoff Entry</h1>
+      <p class="mt-1 text-sm text-indigo-100">
+        Manage weekly off days and half working days.
+      </p>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-8">
+    <form id="weekoffForm"
+      class="space-y-6 rounded-2xl bg-white p-5 shadow-md sm:p-8">
+
+      <section>
+        <h2 class="text-lg font-semibold">Employee Details</h2>
+        <p class="mb-5 mt-1 text-sm text-slate-500">
+          Enter the employee and week information.
+        </p>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="employeeName"
+              class="mb-2 block text-sm font-medium">Employee Name *</label>
+            <input id="employeeName" required
+              placeholder="Enter employee name"
+              class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500">
+          </div>
+
+          <div>
+            <label for="employeeId"
+              class="mb-2 block text-sm font-medium">Employee ID *</label>
+            <input id="employeeId" required
+              placeholder="e.g. EMP102"
+              class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500">
+          </div>
+
+          <div>
+            <label for="weekStart"
+              class="mb-2 block text-sm font-medium">Week Starting *</label>
+            <input type="date" id="weekStart" required
+              class="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="mb-4">
+          <h2 class="text-lg font-semibold">Weekly Calendar</h2>
+          <p class="mt-1 text-sm text-slate-500">
+            Select the weekoff or half working day for each day.
+          </p>
+        </div>
+
+        <div id="weekDays" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
+      </section>
+
+      <div id="message" role="status" aria-live="polite" class="hidden rounded-lg p-4 text-sm"></div>
+
+      <div class="flex flex-col gap-3 border-t pt-5 sm:flex-row sm:justify-end">
+        <button type="reset"
+          class="rounded-lg border border-slate-300 px-6 py-3 font-medium hover:bg-slate-50">
+          Reset Form
+        </button>
+
+        <button type="submit"
+          class="rounded-lg bg-indigo-600 px-6 py-3 font-semibold text-white hover:bg-indigo-700">
+          Save Weekoff
+        </button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
